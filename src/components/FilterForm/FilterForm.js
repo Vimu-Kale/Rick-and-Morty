@@ -89,7 +89,6 @@ const FilterForm = () => {
                 Filters
               </h1>
               <h1
-                // variant="h6"
                 style={{
                   float: "right",
                   color: "#e36937",
@@ -98,6 +97,7 @@ const FilterForm = () => {
                   padding: "3px 15px 3px 15px",
                   borderRadius: "10px",
                   cursor: "pointer",
+                  hover: { boxShadow: " 0 8px 50px rgba(0,0,0,0.55)" },
                   //   boxShadow: " 0 8px 50px rgba(0,0,0,0.55)",
                 }}
                 onClick={handleFilterClear}

@@ -9,7 +9,7 @@ function FavDialogue(props) {
       <Typography variant="h6" fontSize="20px" sx={{ fontFamily: "Poppins" }}>
         Are you sure you want to remove this item from Favourites?
       </Typography>
-      <div style={{ marginTop: "1rem" }}>
+      <div style={{ marginTop: "1rem", display: "flex", gap: "1rem" }}>
         <button
           onClick={() => props.setOpen(false)}
           style={{
@@ -30,7 +30,7 @@ function FavDialogue(props) {
             width: "7rem",
             height: "2.8rem",
             paddingLeft: "2.5rem",
-            marginLeft: "1rem",
+            // marginLeft: "1rem",
           }}
           className="generate-button"
         >
