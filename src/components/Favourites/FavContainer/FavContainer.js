@@ -51,8 +51,9 @@ const FavContainer = () => {
           <div
             style={{
               display: "flex",
-              height: "20rem",
+              height: "18rem",
               justifyContent: "center",
+              width: "auto",
             }}
           >
             <img
@@ -60,7 +61,7 @@ const FavContainer = () => {
               alt="No Favourites Found"
               style={{
                 height: "100%",
-                width: "30rem",
+                width: "24rem",
               }}
             ></img>
           </div>
