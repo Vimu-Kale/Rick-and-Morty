@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./FavCard.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { addToFavourite } from "../../favouriteSlice";
+// import { addToFavourite } from "../../favouriteSlice";
 import { useSelector, useDispatch } from "react-redux";
 import IconButton from "@mui/material/IconButton";
 
@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import FavDialogue from "./FavDialogue";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -29,6 +30,7 @@ const style = {
 
 const FavCard = ({ character }) => {
   const [open, setOpen] = useState(false);
+
   const openDilog = () => {
     setOpen(true);
   };
@@ -39,54 +41,67 @@ const FavCard = ({ character }) => {
 
   const dispatch = useDispatch();
   const favourite = useSelector((state) => state.favourite);
-  const { id, name, image, status, species, gender, type } = character;
+  const { id } = character;
+  const [CharacterData, setCharacterData] = useState({});
   const [isFavourite, setIsFavourite] = useState(
     favourite.favouriteCharacters.some((f) => f.id === id) || false
   );
+
+  useEffect(() => {
+    axios
+      .get(`https://rickandmortyapi.com/api/character/${character.id}`)
+      .then((response) => {
+        // console.log("favcharacter", response);
+        setCharacterData(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   const handleDeselect = () => {
     openDilog();
   };
 
-  const handleSelect = () => {
-    setIsFavourite(true);
-    dispatch(addToFavourite(character));
-  };
+  // const handleSelect = () => {
+  //   setIsFavourite(true);
+  //   dispatch(addToFavourite(character));
+  // };
 
   return (
     <div>
       <div className="card">
-        {status === "Alive" ? (
-          <span className="status-green">{status}</span>
-        ) : status === "Dead" ? (
-          <span className="status-red">{status}</span>
+        {CharacterData.status === "Alive" ? (
+          <span className="status-green">{CharacterData.status}</span>
+        ) : CharacterData.status === "Dead" ? (
+          <span className="status-red">{CharacterData.status}</span>
         ) : (
-          <span className="status-grey">{status}</span>
+          <span className="status-grey">{CharacterData.status}</span>
         )}
         <img
-          src={image}
+          src={CharacterData.image}
           alt="Rick and Morty Character"
           className="img-image"
         ></img>
         <div className="card-info">
           <p className="text-title">
-            {name}
+            {CharacterData.name}
             {isFavourite ? (
               <IconButton style={{ float: "right" }} onClick={handleDeselect}>
                 <FavoriteIcon color="error" />
               </IconButton>
             ) : (
-              <IconButton style={{ float: "right" }} onClick={handleSelect}>
+              <IconButton style={{ float: "right" }}>
                 <FavoriteBorderIcon />
               </IconButton>
             )}
           </p>
           <p className="text-body">
-            {species}
+            {CharacterData.species}
             <br />
-            {gender}
+            {CharacterData.gender}
             <br />
-            {type}
+            {CharacterData.type}
           </p>
         </div>
         {/* <div className="card-footer"></div> */}
@@ -109,6 +124,7 @@ const FavCard = ({ character }) => {
               setOpen={setOpen}
               open={open}
               id={id}
+              setIsFavourite={setIsFavourite}
             />
           </Box>
         </Fade>

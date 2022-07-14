@@ -28,6 +28,7 @@ export const fetchCharacters = createAsyncThunk(
       "https://rickandmortyapi.com/api/character",
       { params: filterObj }
     );
+    // console.log(response.data);
     return response.data;
   }
 );
@@ -49,6 +50,7 @@ const characterSlice = createSlice({
         ...action.payload,
       };
     },
+    resetCharacter: (state) => initialState,
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCharacters.pending, (state, action) => {
@@ -72,6 +74,6 @@ const characterSlice = createSlice({
   },
 });
 
-export const { setFilter, setPage } = characterSlice.actions;
+export const { setFilter, setPage, resetCharacter } = characterSlice.actions;
 
 export default characterSlice.reducer;

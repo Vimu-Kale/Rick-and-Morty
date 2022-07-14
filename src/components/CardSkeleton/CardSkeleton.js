@@ -7,9 +7,7 @@ export default function Variants() {
   return (
     <div style={{ margin: "2rem" }}>
       <Grid container spacing={2} justifyContent="center" alignItems="center">
-        {[
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        ].map((index) => (
+        {[1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
           <Grid
             item
             key={index}

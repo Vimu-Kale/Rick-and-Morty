@@ -5,21 +5,29 @@ import {
   Typography,
   Menu,
   Container,
-  MenuItem,
   Box,
   AppBar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
+
 import image from "../../assets/ram-logo.jpg";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import {
+  CharacterNav,
+  CharacterNavBox,
+  FavouriteNav,
+  FavouriteNavBox,
+  LoginNav,
+  LoginNavBox,
+  RegisterNav,
+  RegisterNavBox,
+} from "./Menus";
 // import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const ResponsiveAppBar = () => {
-  const navigate = useNavigate();
-  const isFavourite = useSelector((state) => state.favourite.isFavourite);
+  const navuser = useSelector((state) => state.appbar.navuser);
+  React.useEffect(() => {}, [navuser]);
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -28,16 +36,6 @@ const ResponsiveAppBar = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleUserList = () => {
-    navigate("/favourites");
-    handleCloseNavMenu();
-  };
-
-  const handleCharacterList = () => {
-    navigate("/");
-    handleCloseNavMenu();
   };
 
   return (
@@ -126,89 +124,16 @@ const ResponsiveAppBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {isFavourite ? (
-                <MenuItem
-                  key={1}
-                  onClick={() => {
-                    handleUserList();
-                  }}
-                >
-                  <Typography
-                    textAlign="center"
-                    style={{
-                      fontFamily: "Poppins",
-                      fontWeight: "bold",
-                      fontSize: "1rem",
-                      cursor: "pointer",
-                      color: "black",
-                    }}
-                  >
-                    Favorites
-                  </Typography>
-                  <FavoriteIcon color="error" />
-                </MenuItem>
-              ) : (
-                <MenuItem
-                  key={1}
-                  onClick={() => {
-                    handleCharacterList();
-                  }}
-                >
-                  <AccountBoxIcon style={{ color: "#bfde42" }} />
-                  <Typography
-                    textAlign="center"
-                    style={{
-                      fontFamily: "Poppins",
-                      fontWeight: "bold",
-                      fontSize: "1rem",
-                      cursor: "pointer",
-                      color: "#black",
-                    }}
-                  >
-                    Characters
-                  </Typography>
-                </MenuItem>
-              )}
+              {navuser === "character" ? <CharacterNav /> : null}
+              {navuser === "login" ? <LoginNav /> : null}
+              {navuser === "register" ? <RegisterNav /> : null}
+              {navuser === "favourite" ? <FavouriteNav /> : null}
             </Menu>
           </Box>
-
-          {isFavourite ? (
-            <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-              <Typography
-                key={1}
-                onClick={handleUserList}
-                sx={{ color: "black" }}
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "bold",
-                  fontSize: "1rem",
-                  cursor: "pointer",
-                  color: "black",
-                  paddingRight: "0.5rem",
-                }}
-              >
-                Favourites
-              </Typography>
-              <FavoriteIcon color="error" />
-            </Box>
-          ) : (
-            <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-              <AccountBoxIcon style={{ color: "#8cc13d" }} />
-              <Typography
-                key={1}
-                onClick={handleCharacterList}
-                sx={{ color: "black" }}
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "bold",
-                  fontSize: "1rem",
-                  cursor: "pointer",
-                }}
-              >
-                Characters
-              </Typography>
-            </Box>
-          )}
+          {navuser === "character" ? <CharacterNavBox /> : null}
+          {navuser === "login" ? <LoginNavBox /> : null}
+          {navuser === "register" ? <RegisterNavBox /> : null}
+          {navuser === "favourite" ? <FavouriteNavBox /> : null}
         </Toolbar>
       </Container>
     </AppBar>

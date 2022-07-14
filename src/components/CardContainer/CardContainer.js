@@ -1,21 +1,50 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CharacterCard from "./CharacterCard/CharacterCard";
 import { fetchCharacters } from "./characterSlice";
 import { Grid } from "@mui/material";
-import { changeRoute } from "../Favourites/favouriteSlice";
 import FilterForm from "../FilterForm/FilterForm";
 import PaginationComponent from "../PaginationComponent/PaginationComponent";
 import CardSkeleton from "../CardSkeleton/CardSkeleton";
+import { changeNavUser } from "../ResponsiveAppBar/appbarSlice";
+import { FetchFav } from "../Favourites/favouriteSlice";
+import Dialogue from "../Dialogue/Dialogue";
 
 const CardContainer = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const [DialogMessage, setDialogueMessage] = useState("");
+  const [DialogTitle, setDialogTitle] = useState("");
+
+  const setDialogueOpen = (title, message) => {
+    setDialogTitle(title);
+    setDialogueMessage(message);
+    setOpen(true);
+  };
+
   const character = useSelector((state) => state.character);
+  const user = useSelector((state) => state.user);
+  // console.log(user);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(changeRoute(true));
     // console.log(character);
-    dispatch(fetchCharacters());
-  }, [dispatch]);
+    dispatch(changeNavUser("character"));
+    if (user?.user?._id) {
+      dispatch(FetchFav(user.user._id))
+        .unwrap()
+        .then((originalPromiseResult) => {
+          // handle result here
+          dispatch(fetchCharacters());
+        })
+        .catch((e) => {
+          dispatch(fetchCharacters());
+          setDialogueOpen("User Favourites", e.message);
+        });
+    } else {
+      dispatch(fetchCharacters());
+    }
+  }, [user, dispatch]);
   // console.log(character);
   return (
     <div style={{ marginTop: "5rem" }}>
@@ -55,6 +84,13 @@ const CardContainer = () => {
           </Grid>
         </div>
       ) : null}
+
+      <Dialogue
+        title={DialogTitle}
+        message={DialogMessage}
+        open={open}
+        setOpen={setOpen}
+      />
     </div>
   );
 };

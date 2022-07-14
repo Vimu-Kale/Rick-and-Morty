@@ -1,9 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import FavCard from "./FavCard/FavCard";
 import { Grid } from "@mui/material";
-import { changeRoute } from "../favouriteSlice";
+import { changeNavUser } from "../../ResponsiveAppBar/appbarSlice";
+import { FetchFav } from "../favouriteSlice";
+import Dialogue from "../../Dialogue/Dialogue";
+
 const FavContainer = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const [DialogMessage, setDialogueMessage] = useState("");
+  const [DialogTitle, setDialogTitle] = useState("");
+
+  const setDialogueOpen = (title, message) => {
+    setDialogTitle(title);
+    setDialogueMessage(message);
+    setOpen(true);
+  };
+
+  const user = useSelector((state) => state.user);
+
   const favouriteCharacter = useSelector(
     (state) => state.favourite.favouriteCharacters
   );
@@ -11,8 +27,19 @@ const FavContainer = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(changeRoute(false));
-  });
+    dispatch(changeNavUser("favourite"));
+  }, [favouriteCharacter, dispatch]);
+
+  useEffect(() => {
+    dispatch(FetchFav(user.user._id))
+      .unwrap()
+      .then((originalPromiseResult) => {
+        //
+      })
+      .catch((e) => {
+        setDialogueOpen("User Favourites", e.message);
+      });
+  }, [user, dispatch]);
   // console.log(favouriteCharacter);
 
   return (
@@ -67,6 +94,12 @@ const FavContainer = () => {
           </div>
         </div>
       )}
+      <Dialogue
+        title={DialogTitle}
+        message={DialogMessage}
+        open={open}
+        setOpen={setOpen}
+      />
     </div>
   );
 };
