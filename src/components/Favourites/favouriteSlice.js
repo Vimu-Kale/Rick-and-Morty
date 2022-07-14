@@ -9,7 +9,7 @@ export const AddToFav = createAsyncThunk(
     const userID = state.user.user._id;
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/users/addtofav",
+        "https://baroque-fromage-39648.herokuapp.com/api/users/addtofav",
         null,
         {
           params: {
@@ -37,7 +37,7 @@ export const RemoveFromFav = createAsyncThunk(
     const userID = state.user.user._id;
     try {
       const response = await axios.delete(
-        "http://localhost:3001/api/users/removefromfav",
+        "https://baroque-fromage-39648.herokuapp.com/api/users/removefromfav",
         {
           params: {
             id: favID,
@@ -64,7 +64,7 @@ export const FetchFav = createAsyncThunk(
 
     try {
       const response = await axios.get(
-        "http://localhost:3001/api/users/favourites",
+        "https://baroque-fromage-39648.herokuapp.com/api/users/favourites",
         {
           params: {
             _id: userID,

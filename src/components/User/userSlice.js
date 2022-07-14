@@ -13,7 +13,7 @@ export const LoginUser = createAsyncThunk(
   async (loginDetails) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/users/login",
+        "https://baroque-fromage-39648.herokuapp.com/api/users/login",
         loginDetails
       );
       return response.data;
@@ -30,7 +30,7 @@ export const RegisterUser = createAsyncThunk(
     console.log("userDetails", userDetails);
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/users/signup",
+        "https://baroque-fromage-39648.herokuapp.com/api/users/signup",
         userDetails
       );
       return response.data;

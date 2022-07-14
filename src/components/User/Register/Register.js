@@ -76,6 +76,7 @@ const Register = () => {
         );
         clearform();
       } catch (e) {
+        console.log(e);
         setDialogueOpen("Error", "Failed To Register!");
       }
     }

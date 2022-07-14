@@ -15,20 +15,15 @@ const initialState = {
   },
 };
 
-//Generates Pending, Fulfilled and Rejected action types
 export const fetchCharacters = createAsyncThunk(
   "character/fetchUsers",
   async (arg, { getState }) => {
     const state = getState();
-    // console.log("state", state);
     const filterObj = state.character.filterObj;
-    // console.log("filterObj", filterObj);
-    // console.log("fetchCharacter");
     const response = await axios.get(
       "https://rickandmortyapi.com/api/character",
       { params: filterObj }
     );
-    // console.log(response.data);
     return response.data;
   }
 );
