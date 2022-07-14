@@ -1,6 +1,6 @@
 {
   "name": "rick-and-morty",
-  "homepage": "https://Vimu-Kale.github.io/Rick-and-Morty",
+  "homepage": "https://rickandmortyvimu.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
