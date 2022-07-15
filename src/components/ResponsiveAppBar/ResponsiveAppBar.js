@@ -17,8 +17,6 @@ import {
   CharacterNavBox,
   FavouriteNav,
   FavouriteNavBox,
-  LoginNav,
-  LoginNavBox,
   RegisterNav,
   RegisterNavBox,
 } from "./Menus";
@@ -125,13 +123,13 @@ const ResponsiveAppBar = () => {
               }}
             >
               {navuser === "character" ? <CharacterNav /> : null}
-              {navuser === "login" ? <LoginNav /> : null}
+              {navuser === "login" ? "" : null}
               {navuser === "register" ? <RegisterNav /> : null}
               {navuser === "favourite" ? <FavouriteNav /> : null}
             </Menu>
           </Box>
           {navuser === "character" ? <CharacterNavBox /> : null}
-          {navuser === "login" ? <LoginNavBox /> : null}
+          {navuser === "login" ? "" : null}
           {navuser === "register" ? <RegisterNavBox /> : null}
           {navuser === "favourite" ? <FavouriteNavBox /> : null}
         </Toolbar>

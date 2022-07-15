@@ -70,14 +70,16 @@ const Register = () => {
       };
       try {
         const result = await dispatch(RegisterUser(userDetails)).unwrap();
-        setDialogueOpen(
-          "Success",
-          "Registration Successfull Navigate to Login Tab"
-        );
-        clearform();
+        if (result) {
+          setDialogueOpen(
+            "Success",
+            "Registration Successfull Navigate to Login Tab"
+          );
+          clearform();
+        }
       } catch (e) {
         console.log(e);
-        setDialogueOpen("Error", "Failed To Register!");
+        setDialogueOpen("Failed To Register", e.message);
       }
     }
   };
@@ -105,6 +107,7 @@ const Register = () => {
                 fontFamily: "Poppins",
                 float: "left",
                 fontWeight: "bolder",
+                // color: "#4285F4",
               }}
             >
               Register
@@ -234,13 +237,14 @@ const Register = () => {
                   loadingPosition="start"
                   variant="contained"
                   onClick={handleOnSubmit}
-                  color="success"
+                  // color="success"
                   style={{
                     marginTop: "1rem",
                     width: "50%",
-                    // backgroundColor: "black",
+                    backgroundColor: "#0F9D58",
                     textTransform: "none",
                     fontSize: "large",
+                    fontWeight: "bolder",
                   }}
                 >
                   Submit

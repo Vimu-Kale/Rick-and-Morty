@@ -49,7 +49,7 @@ const CardContainer = () => {
   return (
     <div style={{ marginTop: "5rem" }}>
       <FilterForm />
-      <PaginationComponent />
+
       {character.loading && (
         <div>
           <div> Loading..</div>
@@ -84,7 +84,7 @@ const CardContainer = () => {
           </Grid>
         </div>
       ) : null}
-
+      <PaginationComponent />
       <Dialogue
         title={DialogTitle}
         message={DialogMessage}

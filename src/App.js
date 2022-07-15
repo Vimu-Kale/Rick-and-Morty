@@ -2,10 +2,14 @@ import "./App.css";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import ResponsiveAppBar from "./components/ResponsiveAppBar/ResponsiveAppBar";
-import CardContainer from "./components/CardContainer/CardContainer";
+// import CardContainer from "./components/CardContainer/CardContainer";
 import RequireAuth from "./components/RequireAuth";
 import CircularProgress from "@mui/material/CircularProgress";
-const LazyLogin = React.lazy(() => import("./components/User/Login/Login"));
+import Login from "./components/User/Login/Login";
+// const LazyLogin = React.lazy(() => import("./components/User/Login/Login"));
+const LazyCardContainer = React.lazy(() =>
+  import("./components/CardContainer/CardContainer")
+);
 const LazyFavContainer = React.lazy(() =>
   import("./components/Favourites/FavContainer/FavContainer")
 );
@@ -18,16 +22,18 @@ function App() {
     <div className="App">
       <ResponsiveAppBar />
       <Routes>
-        <Route path="/" element={<CardContainer />} />
-
         <Route
-          path="/login"
+          path="/characters"
           element={
-            <React.Suspense fallback={<CircularProgress />}>
-              <LazyLogin />
-            </React.Suspense>
+            <RequireAuth>
+              <React.Suspense fallback={<CircularProgress />}>
+                <LazyCardContainer />
+              </React.Suspense>
+            </RequireAuth>
           }
         />
+
+        <Route path="/" element={<Login />} />
 
         <Route
           path="/favourite"
@@ -49,7 +55,7 @@ function App() {
           }
         />
 
-        <Route path="*" element={<CardContainer />} />
+        <Route path="*" element={<Login />} />
       </Routes>
     </div>
   );

@@ -5,6 +5,7 @@ import { Grid } from "@mui/material";
 import { changeNavUser } from "../../ResponsiveAppBar/appbarSlice";
 import { FetchFav } from "../favouriteSlice";
 import Dialogue from "../../Dialogue/Dialogue";
+import CardSkeleton from "../../CardSkeleton/CardSkeleton";
 
 const FavContainer = () => {
   const [open, setOpen] = React.useState(false);
@@ -23,6 +24,8 @@ const FavContainer = () => {
   const favouriteCharacter = useSelector(
     (state) => state.favourite.favouriteCharacters
   );
+
+  const favouriteloading = useSelector((state) => state.favourite.loading);
 
   const dispatch = useDispatch();
 
@@ -50,7 +53,15 @@ const FavContainer = () => {
         // backgroundSize: "cover",
       }}
     >
-      {favouriteCharacter?.length ? (
+      {favouriteloading && (
+        <div>
+          <div>
+            <h4 style={{ marginTop: "2rem" }}>Loading...</h4>
+          </div>
+          <CardSkeleton />
+        </div>
+      )}
+      {favouriteCharacter?.length && !favouriteloading ? (
         <div style={{ margin: "2rem" }}>
           <Grid
             container
@@ -73,26 +84,32 @@ const FavContainer = () => {
           </Grid>
         </div>
       ) : (
-        <div>
-          <h1>You Don't Have Any Favourites Yet!</h1>
-          <div
-            style={{
-              display: "flex",
-              height: "18rem",
-              justifyContent: "center",
-              width: "auto",
-            }}
-          >
-            <img
-              src="https://cdn.dribbble.com/users/458522/screenshots/7157588/media/737705cec64886f7cc13a6d768b9b36a.jpg"
-              alt="No Favourites Found"
-              style={{
-                height: "100%",
-                width: "24rem",
-              }}
-            ></img>
-          </div>
-        </div>
+        <>
+          {favouriteloading ? (
+            ""
+          ) : (
+            <div>
+              <h1>You Don't Have Any Favourites Yet!</h1>
+              <div
+                style={{
+                  display: "flex",
+                  height: "18rem",
+                  justifyContent: "center",
+                  width: "auto",
+                }}
+              >
+                <img
+                  src="https://cdn.dribbble.com/users/458522/screenshots/7157588/media/737705cec64886f7cc13a6d768b9b36a.jpg"
+                  alt="No Favourites Found"
+                  style={{
+                    height: "100%",
+                    width: "24rem",
+                  }}
+                ></img>
+              </div>
+            </div>
+          )}
+        </>
       )}
       <Dialogue
         title={DialogTitle}

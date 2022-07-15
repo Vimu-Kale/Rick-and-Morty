@@ -62,7 +62,7 @@ const Login = () => {
         ).unwrap();
         // console.log("originalPromiseResult", originalPromiseResult);
         setDialogueOpen("Success", "Login Successfull");
-        navigate("/", { replace: true });
+        navigate("/characters", { replace: true });
       } catch (rejectedValueOrSerializedError) {
         // console.log("Error", rejectedValueOrSerializedError);
         setDialogueOpen("Error", rejectedValueOrSerializedError.message);
@@ -165,17 +165,37 @@ const Login = () => {
                   loadingPosition="start"
                   variant="contained"
                   onClick={handleOnSubmit}
-                  color="success"
+                  // color="success"
                   style={{
                     marginTop: "1rem",
                     width: "100%",
-                    // backgroundColor: "black",
+                    backgroundColor: "#0F9D58",
                     textTransform: "none",
                     fontSize: "large",
+                    fontWeight: "bolder",
                   }}
                 >
                   Submit
                 </LoadingButton>
+              </div>
+              <div>
+                <Typography
+                  style={{
+                    marginTop: ".5rem",
+                    fontFamily: "Poppins",
+                    fontWeight: "bolder",
+                  }}
+                >
+                  Don't have an Account?
+                  <span
+                    style={{ color: "#4285F4", cursor: "pointer" }}
+                    onClick={() => {
+                      navigate("/register");
+                    }}
+                  >
+                    Create Account
+                  </span>
+                </Typography>
               </div>
             </form>
           </Paper>

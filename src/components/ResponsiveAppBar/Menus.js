@@ -4,41 +4,30 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useDispatch } from "react-redux";
 import { resetUser } from "../User/userSlice";
 import { resetNav } from "./appbarSlice";
 import { resetFav } from "../Favourites/favouriteSlice";
 import { resetCharacter } from "../CardContainer/characterSlice";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
-///////////////////////////////////////////////
-export const LoginNav = () => {
+// //////////////////////////////////////////////////////////////////
+// initial & signed in charcater nav
+// ////////////////////////////////////////////////////////////////////
+
+export const CharacterNav = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <div>
       <MenuItem
-        key={1}
+        key={77}
         onClick={() => {
-          navigate("/register");
-        }}
-      >
-        <Typography
-          textAlign="center"
-          style={{
-            fontFamily: "Poppins",
-            fontWeight: "bold",
-            fontSize: "1rem",
-            cursor: "pointer",
-            color: "black",
-          }}
-        >
-          Register
-        </Typography>
-      </MenuItem>
-      <MenuItem
-        key={2}
-        onClick={() => {
-          navigate("/");
+          navigate("/characters");
         }}
       >
         <Typography
@@ -54,19 +43,83 @@ export const LoginNav = () => {
           Characters
         </Typography>
       </MenuItem>
+      <MenuItem
+        key={6}
+        onClick={() => {
+          navigate("/favourite");
+        }}
+      >
+        <Typography
+          textAlign="center"
+          style={{
+            fontFamily: "Poppins",
+            fontWeight: "bold",
+            fontSize: "1rem",
+            cursor: "pointer",
+            color: "black",
+          }}
+        >
+          Favourites
+        </Typography>
+      </MenuItem>
+      <MenuItem
+        key={7}
+        onClick={() => {
+          dispatch(resetUser());
+          dispatch(resetNav());
+          dispatch(resetFav());
+          dispatch(resetCharacter());
+          navigate("/");
+        }}
+      >
+        <Typography
+          textAlign="center"
+          style={{
+            fontFamily: "Poppins",
+            fontWeight: "bold",
+            fontSize: "1rem",
+            cursor: "pointer",
+            color: "black",
+          }}
+        >
+          Logout
+        </Typography>
+      </MenuItem>
     </div>
   );
 };
 
-export const LoginNavBox = () => {
+export const CharacterNavBox = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <div style={{ display: "flex" }}>
       <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
         <Button
-          key={3}
+          key={9}
           onClick={() => {
-            navigate("/register");
+            navigate("/characters");
+          }}
+          sx={{ color: "black" }}
+          style={{
+            fontFamily: "Poppins",
+            fontWeight: "bold",
+            fontSize: "1rem",
+            cursor: "pointer",
+            color: "#8cc13d",
+            paddingRight: "0.5rem",
+            textTransform: "none",
+          }}
+          startIcon={<PeopleAltIcon />}
+        >
+          Characters
+        </Button>
+      </Box>
+      <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+        <Button
+          key={9}
+          onClick={() => {
+            navigate("/favourite");
           }}
           sx={{ color: "black" }}
           style={{
@@ -78,15 +131,19 @@ export const LoginNavBox = () => {
             paddingRight: "0.5rem",
             textTransform: "none",
           }}
-          startIcon={<PersonAddAltRoundedIcon />}
+          startIcon={<FavoriteIcon />}
         >
-          Register
+          Favourites
         </Button>
       </Box>
       <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
         <Button
-          key={4}
+          key={10}
           onClick={() => {
+            dispatch(resetUser());
+            dispatch(resetNav());
+            dispatch(resetFav());
+            dispatch(resetCharacter());
             navigate("/");
           }}
           sx={{ color: "black" }}
@@ -99,172 +156,11 @@ export const LoginNavBox = () => {
             paddingRight: "0.5rem",
             textTransform: "none",
           }}
-          startIcon={<PersonAddAltRoundedIcon />}
+          startIcon={<LogoutIcon />}
         >
-          character
+          Logout
         </Button>
       </Box>
-    </div>
-  );
-};
-// //////////////////////////////////////////////////////////////////
-// initial & signed in charcater nav
-// ////////////////////////////////////////////////////////////////////
-
-export const CharacterNav = () => {
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  return (
-    <div>
-      {!user.accessToken ? (
-        <MenuItem
-          key={5}
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
-          <Typography
-            textAlign="center"
-            style={{
-              fontFamily: "Poppins",
-              fontWeight: "bold",
-              fontSize: "1rem",
-              cursor: "pointer",
-              color: "black",
-            }}
-          >
-            login
-          </Typography>
-        </MenuItem>
-      ) : (
-        <>
-          <MenuItem
-            key={6}
-            onClick={() => {
-              navigate("/favourite");
-            }}
-          >
-            <Typography
-              textAlign="center"
-              style={{
-                fontFamily: "Poppins",
-                fontWeight: "bold",
-                fontSize: "1rem",
-                cursor: "pointer",
-                color: "black",
-              }}
-            >
-              Favorite
-            </Typography>
-          </MenuItem>
-          <MenuItem
-            key={7}
-            onClick={() => {
-              dispatch(resetUser());
-              dispatch(resetNav());
-              dispatch(resetFav());
-              dispatch(resetCharacter());
-              navigate("/");
-            }}
-          >
-            <Typography
-              textAlign="center"
-              style={{
-                fontFamily: "Poppins",
-                fontWeight: "bold",
-                fontSize: "1rem",
-                cursor: "pointer",
-                color: "black",
-              }}
-            >
-              Logout
-            </Typography>
-          </MenuItem>
-        </>
-      )}
-    </div>
-  );
-};
-
-export const CharacterNavBox = () => {
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  return (
-    <div style={{ display: "flex" }}>
-      {!user.accessToken ? (
-        <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-          <Button
-            key={8}
-            onClick={() => {
-              navigate("/login");
-            }}
-            sx={{ color: "black" }}
-            style={{
-              fontFamily: "Poppins",
-              fontWeight: "bold",
-              fontSize: "1rem",
-              cursor: "pointer",
-              color: "black",
-              paddingRight: "0.5rem",
-              textTransform: "none",
-            }}
-            startIcon={<PersonAddAltRoundedIcon />}
-          >
-            login
-          </Button>
-        </Box>
-      ) : (
-        <>
-          <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-            <Button
-              key={9}
-              onClick={() => {
-                navigate("/favourite");
-              }}
-              sx={{ color: "black" }}
-              style={{
-                fontFamily: "Poppins",
-                fontWeight: "bold",
-                fontSize: "1rem",
-                cursor: "pointer",
-                color: "black",
-                paddingRight: "0.5rem",
-                textTransform: "none",
-              }}
-              startIcon={<PersonAddAltRoundedIcon />}
-            >
-              Favorite
-            </Button>
-          </Box>
-          <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-            <Button
-              key={10}
-              onClick={() => {
-                dispatch(resetUser());
-                dispatch(resetNav());
-                dispatch(resetFav());
-                dispatch(resetCharacter());
-                navigate("/");
-              }}
-              sx={{ color: "black" }}
-              style={{
-                fontFamily: "Poppins",
-                fontWeight: "bold",
-                fontSize: "1rem",
-                cursor: "pointer",
-                color: "black",
-                paddingRight: "0.5rem",
-                textTransform: "none",
-              }}
-              startIcon={<PersonAddAltRoundedIcon />}
-            >
-              logout
-            </Button>
-          </Box>
-        </>
-      )}
     </div>
   );
 };
@@ -279,9 +175,9 @@ export const FavouriteNav = () => {
   return (
     <div style={{ display: "flex" }}>
       <MenuItem
-        key={11}
+        key={88}
         onClick={() => {
-          navigate("/");
+          navigate("/characters");
         }}
       >
         <Typography
@@ -294,7 +190,7 @@ export const FavouriteNav = () => {
             color: "black",
           }}
         >
-          character
+          Characters
         </Typography>
       </MenuItem>
       <MenuItem
@@ -333,7 +229,7 @@ export const FavouriteNavBox = () => {
         <Button
           key={13}
           onClick={() => {
-            navigate("/");
+            navigate("/characters");
           }}
           sx={{ color: "black" }}
           style={{
@@ -345,9 +241,30 @@ export const FavouriteNavBox = () => {
             paddingRight: "0.5rem",
             textTransform: "none",
           }}
-          startIcon={<PersonAddAltRoundedIcon />}
+          startIcon={<PeopleAltIcon />}
         >
-          Character
+          Characters
+        </Button>
+      </Box>
+      <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+        <Button
+          key={13}
+          onClick={() => {
+            navigate("/favourites");
+          }}
+          sx={{ color: "black" }}
+          style={{
+            fontFamily: "Poppins",
+            fontWeight: "bold",
+            fontSize: "1rem",
+            cursor: "pointer",
+            color: "#8cc13d",
+            paddingRight: "0.5rem",
+            textTransform: "none",
+          }}
+          startIcon={<FavoriteIcon />}
+        >
+          Favourites
         </Button>
       </Box>
       <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
@@ -370,9 +287,9 @@ export const FavouriteNavBox = () => {
             paddingRight: "0.5rem",
             textTransform: "none",
           }}
-          startIcon={<PersonAddAltRoundedIcon />}
+          startIcon={<LogoutIcon />}
         >
-          logot
+          Logout
         </Button>
       </Box>
     </div>
@@ -388,7 +305,7 @@ export const RegisterNav = () => {
   return (
     <div>
       <MenuItem
-        key={15}
+        key={16}
         onClick={() => {
           navigate("/");
         }}
@@ -398,31 +315,12 @@ export const RegisterNav = () => {
           style={{
             fontFamily: "Poppins",
             fontWeight: "bold",
-            fontSize: "1rem",
+            fontSize: "large",
             cursor: "pointer",
             color: "black",
           }}
         >
-          character
-        </Typography>
-      </MenuItem>
-      <MenuItem
-        key={16}
-        onClick={() => {
-          navigate("/login");
-        }}
-      >
-        <Typography
-          textAlign="center"
-          style={{
-            fontFamily: "Poppins",
-            fontWeight: "bold",
-            fontSize: "1rem",
-            cursor: "pointer",
-            color: "black",
-          }}
-        >
-          login
+          Login
         </Typography>
       </MenuItem>
     </div>
@@ -435,42 +333,21 @@ export const RegisterNavBox = () => {
     <div style={{ display: "flex" }}>
       <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
         <Button
-          key={17}
+          key={18}
           onClick={() => {
             navigate("/");
           }}
           sx={{ color: "black" }}
           style={{
             fontFamily: "Poppins",
-            fontWeight: "bold",
-            fontSize: "1rem",
+            fontWeight: "bolder",
+            fontSize: "large",
             cursor: "pointer",
             color: "black",
             paddingRight: "0.5rem",
             textTransform: "none",
           }}
-          startIcon={<PersonAddAltRoundedIcon />}
-        >
-          Character
-        </Button>
-      </Box>
-      <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-        <Button
-          key={18}
-          onClick={() => {
-            navigate("/login");
-          }}
-          sx={{ color: "black" }}
-          style={{
-            fontFamily: "Poppins",
-            fontWeight: "bold",
-            fontSize: "1rem",
-            cursor: "pointer",
-            color: "black",
-            paddingRight: "0.5rem",
-            textTransform: "none",
-          }}
-          startIcon={<PersonAddAltRoundedIcon />}
+          startIcon={<LoginIcon />}
         >
           Login
         </Button>

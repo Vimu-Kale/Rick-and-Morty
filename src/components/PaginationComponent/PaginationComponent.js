@@ -16,7 +16,13 @@ export default function PaginationComponent() {
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: "2rem",
+        marginBottom: "2rem",
+      }}
     >
       <Typography
         style={{
