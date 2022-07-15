@@ -124,12 +124,14 @@ const ResponsiveAppBar = () => {
             >
               {navuser === "character" ? <CharacterNav /> : null}
               {navuser === "login" ? "" : null}
+              {navuser === "individual" ? "" : null}
               {navuser === "register" ? <RegisterNav /> : null}
               {navuser === "favourite" ? <FavouriteNav /> : null}
             </Menu>
           </Box>
           {navuser === "character" ? <CharacterNavBox /> : null}
           {navuser === "login" ? "" : null}
+          {navuser === "individual" ? "" : null}
           {navuser === "register" ? <RegisterNavBox /> : null}
           {navuser === "favourite" ? <FavouriteNavBox /> : null}
         </Toolbar>

@@ -6,6 +6,7 @@ import ResponsiveAppBar from "./components/ResponsiveAppBar/ResponsiveAppBar";
 import RequireAuth from "./components/RequireAuth";
 import CircularProgress from "@mui/material/CircularProgress";
 import Login from "./components/User/Login/Login";
+import Character from "./components/Character/Character";
 // const LazyLogin = React.lazy(() => import("./components/User/Login/Login"));
 const LazyCardContainer = React.lazy(() =>
   import("./components/CardContainer/CardContainer")
@@ -28,6 +29,17 @@ function App() {
             <RequireAuth>
               <React.Suspense fallback={<CircularProgress />}>
                 <LazyCardContainer />
+              </React.Suspense>
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path="/individual"
+          element={
+            <RequireAuth>
+              <React.Suspense fallback={<CircularProgress />}>
+                <Character />
               </React.Suspense>
             </RequireAuth>
           }

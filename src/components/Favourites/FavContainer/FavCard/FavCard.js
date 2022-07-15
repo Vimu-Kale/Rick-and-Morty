@@ -11,6 +11,7 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import FavDialogue from "./FavDialogue";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -28,6 +29,7 @@ const style = {
 };
 
 const FavCard = ({ character }) => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const openDilog = () => {
@@ -66,6 +68,10 @@ const FavCard = ({ character }) => {
   //   dispatch(addToFavourite(character));
   // };
 
+  const handleOnImageClick = () => {
+    navigate("/individual", { state: { character: CharacterData } });
+  };
+
   return (
     <div>
       <div className="card">
@@ -80,6 +86,7 @@ const FavCard = ({ character }) => {
           src={CharacterData.image}
           alt="Rick and Morty Character"
           className="img-image"
+          onClick={handleOnImageClick}
         ></img>
         <div className="card-info">
           <p className="text-title">

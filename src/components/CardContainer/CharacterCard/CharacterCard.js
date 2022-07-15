@@ -6,8 +6,10 @@ import { AddToFav, RemoveFromFav } from "../../Favourites/favouriteSlice";
 import { useSelector, useDispatch } from "react-redux";
 import IconButton from "@mui/material/IconButton";
 import Dialogue from "../../Dialogue/Dialogue";
+import { useNavigate } from "react-router-dom";
 
 const CharacterCard = ({ character }) => {
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [DialogMessage, setDialogueMessage] = useState("");
   const [DialogTitle, setDialogTitle] = useState("");
@@ -68,6 +70,10 @@ const CharacterCard = ({ character }) => {
       });
   };
 
+  const handleOnImageClick = () => {
+    navigate("/individual", { state: { character } });
+  };
+
   return (
     <div>
       <div className="card">
@@ -82,6 +88,7 @@ const CharacterCard = ({ character }) => {
           src={image}
           alt="Rick and Morty Character"
           className="img-image"
+          onClick={handleOnImageClick}
         ></img>
         <div className="card-info">
           <p className="text-title">

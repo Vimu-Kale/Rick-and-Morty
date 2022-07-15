@@ -1,0 +1,11 @@
+
+
+.img-indiviual{
+    background-size: cover;
+    /* background-color: #ffcaa6; */
+    /* height: 50%; */
+    width: 50%;
+    border-radius: 25px;
+    transition: .3s ease;
+    overflow: hidden;
+   }

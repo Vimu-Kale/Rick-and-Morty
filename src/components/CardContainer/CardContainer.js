@@ -12,7 +12,7 @@ import Dialogue from "../Dialogue/Dialogue";
 
 const CardContainer = () => {
   const [open, setOpen] = React.useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [DialogMessage, setDialogueMessage] = useState("");
   const [DialogTitle, setDialogTitle] = useState("");
 
@@ -31,13 +31,16 @@ const CardContainer = () => {
     // console.log(character);
     dispatch(changeNavUser("character"));
     if (user?.user?._id) {
+      setIsLoading(true);
       dispatch(FetchFav(user.user._id))
         .unwrap()
         .then((originalPromiseResult) => {
           // handle result here
+          setIsLoading(false);
           dispatch(fetchCharacters());
         })
         .catch((e) => {
+          setIsLoading(false);
           dispatch(fetchCharacters());
           setDialogueOpen("User Favourites", e.message);
         });
@@ -49,7 +52,12 @@ const CardContainer = () => {
   return (
     <div style={{ marginTop: "5rem" }}>
       <FilterForm />
-
+      {isLoading && (
+        <div>
+          <div> Loading..</div>
+          <CardSkeleton />
+        </div>
+      )}
       {character.loading && (
         <div>
           <div> Loading..</div>
