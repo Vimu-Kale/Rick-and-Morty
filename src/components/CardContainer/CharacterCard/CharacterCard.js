@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import "./CharacterCard.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import {
-  AddToFav,
-  RemoveFromFav,
-  removeFromFavourite,
-} from "../../Favourites/favouriteSlice";
+import { AddToFav, RemoveFromFav } from "../../Favourites/favouriteSlice";
 import { useSelector, useDispatch } from "react-redux";
 import IconButton from "@mui/material/IconButton";
 import Dialogue from "../../Dialogue/Dialogue";
@@ -43,8 +39,8 @@ const CharacterCard = ({ character }) => {
     setIsFavourite(true);
     dispatch(AddToFav(id))
       .unwrap()
-      .then((originalPromiseResult) => {
-        setDialogueOpen("Success", "Added To Favourites!");
+      .then(() => {
+        // setDialogueOpen("Success", "Added To Favourites!");
       })
       .catch((e) => {
         setDialogueOpen(
@@ -60,8 +56,8 @@ const CharacterCard = ({ character }) => {
     setIsFavourite(false);
     dispatch(RemoveFromFav(id))
       .unwrap()
-      .then((originalPromiseResult) => {
-        setDialogueOpen("Success", "Removed From Favourites!");
+      .then(() => {
+        // setDialogueOpen("Success", "Removed From Favourites!");
       })
       .catch((e) => {
         setDialogueOpen(

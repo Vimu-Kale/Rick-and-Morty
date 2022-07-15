@@ -4,15 +4,20 @@ import { useDispatch } from "react-redux";
 import { RemoveFromFav, removeFromFavourite } from "../../favouriteSlice";
 import Dialogue from "../../../Dialogue/Dialogue";
 
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+
 function FavDialogue(props) {
   const [dopen, setdOpen] = React.useState(false);
+  const [ddopen, setddOpen] = React.useState(false);
+
   const [DialogMessage, setDialogueMessage] = useState("");
   const [DialogTitle, setDialogTitle] = useState("");
   const dispatch = useDispatch();
   const setDialogueOpen = (title, message) => {
     setDialogTitle(title);
     setDialogueMessage(message);
-    setdOpen(true);
+    setddOpen(true);
   };
   return (
     <div>
@@ -36,14 +41,17 @@ function FavDialogue(props) {
         <button
           onClick={() => {
             props.setIsFavourite(false);
+            setdOpen(true);
             dispatch(RemoveFromFav(props.id))
               .unwrap()
-              .then((originalPromiseResult) => {
+              .then(() => {
                 dispatch(removeFromFavourite(props.id));
-                setDialogueOpen("Success", "Removed From Favourites!");
+                setdOpen(false);
+                // setDialogueOpen("Success", "Removed From Favourites!");
                 props.setOpen(false);
               })
               .catch((e) => {
+                setdOpen(false);
                 setDialogueOpen(
                   "Error",
                   "Failed To Remove From Favourites. Try Sometime later!"
@@ -67,9 +75,16 @@ function FavDialogue(props) {
       <Dialogue
         title={DialogTitle}
         message={DialogMessage}
-        open={dopen}
-        setOpen={setdOpen}
+        open={ddopen}
+        setOpen={setddOpen}
       />
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 3 }}
+        open={dopen}
+        // onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 }

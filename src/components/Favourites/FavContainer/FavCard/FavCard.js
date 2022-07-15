@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./FavCard.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-// import { addToFavourite } from "../../favouriteSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import IconButton from "@mui/material/IconButton";
 
 import Backdrop from "@mui/material/Backdrop";
@@ -39,7 +38,6 @@ const FavCard = ({ character }) => {
     setOpen(false);
   };
 
-  const dispatch = useDispatch();
   const favourite = useSelector((state) => state.favourite);
   const { id } = character;
   const [CharacterData, setCharacterData] = useState({});
