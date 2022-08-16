@@ -10,13 +10,15 @@ const Character = () => {
 
   const dispatch = useDispatch();
   const { state } = useLocation();
-
+  console.log(state);
   const { image, name, status, species, gender, origin, type } =
     state.character;
+
   useEffect(() => {
     dispatch(changeNavUser("individual"));
+    console.log(state);
     if (!state) {
-      Navigate("/characters");
+      navigate("/characters");
     }
   });
   return (
